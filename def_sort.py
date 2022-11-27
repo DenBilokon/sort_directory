@@ -98,8 +98,7 @@ def sort_create_files(start_path):
                         shutil.move(txt_path, dir_archives)
                     else:
                         try:
-                            shutil.move(os.path.join(f"{root}", f"{file}"),
-                                        os.path.join(f"{start_path}", 'others'))
+                            shutil.move(os.path.join(f"{root}", f"{file}"),dir_archives)
                         except shutil.Error:
                             pass
 
