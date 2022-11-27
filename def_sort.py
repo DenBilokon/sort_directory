@@ -62,43 +62,40 @@ def sort_create_files(start_path):
                 list_files = file.split(".")
 
                 if list_files[-1].upper() in list_image:
-                    file_path = os.path.join(dir_images, file)
                     new_name = os.path.join(root, normalize_names(file))
                     os.rename(txt_path, new_name)
                     txt_path = new_name
                     shutil.move(txt_path, dir_images)
 
                 elif list_files[-1].upper() in list_video:
-                    file_path = os.path.join(dir_videos, file)
                     new_name = os.path.join(root, normalize_names(file))
                     os.rename(txt_path, new_name)
                     txt_path = new_name
                     shutil.move(txt_path, dir_videos)
 
                 elif list_files[-1].upper() in list_music:
-                    file_path = os.path.join(dir_music, file)
                     new_name = os.path.join(root, normalize_names(file))
                     os.rename(txt_path, new_name)
                     txt_path = new_name
                     shutil.move(txt_path, dir_music)
 
                 elif list_files[-1].upper() in list_documents:
-                    file_path = os.path.join(dir_documents, file)
                     new_name = os.path.join(root, normalize_names(file))
                     os.rename(txt_path, new_name)
                     txt_path = new_name
                     shutil.move(txt_path, dir_documents)
 
                 elif list_files[-1].upper() in list_archives:
-                    file_path = os.path.join(dir_archives, file)
-                    new_name = os.path.join(root, normalize_names(file))
+                    filename = normalize_names(file)
+                    new_name = os.path.join(root, filename)
                     os.rename(txt_path, new_name)
                     txt_path = new_name
                     shutil.move(txt_path, dir_archives)
+                    txt_path = os.path.join(dir_archives, filename)
                     try:
-                        shutil.unpack_archive(txt_path, os.path.join(f"{start_path}", "archives", f"{dir_archives}"))
+                        shutil.unpack_archive(txt_path, dir_archives)
                     except (ValueError, shutil.ReadError):
-                        shutil.move(txt_path, os.path.join(f"{start_path}", "archives"))
+                        shutil.move(txt_path, dir_archives)
                     else:
                         try:
                             shutil.move(os.path.join(f"{root}", f"{file}"),
@@ -107,7 +104,7 @@ def sort_create_files(start_path):
                             pass
 
                 else:
-                    file_path = os.path.join(dir_others, file)
+                    os.path.join(dir_others, file)
                     new_name = os.path.join(root, normalize_names(file))
                     os.rename(txt_path, new_name)
                     txt_path = new_name
@@ -122,7 +119,7 @@ def sort_create_files(start_path):
     for direct in Path(start_path).glob("*"):
         if direct.is_dir() and direct.name not in name_of_dirs:
             try:
-                os.remove(direct)
+                shutil.rmtree(direct, ignore_errors=True)
             except PermissionError:
                 print("Permission error for delete", direct)
                 pass

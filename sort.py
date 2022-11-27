@@ -2,7 +2,7 @@ import def_sort
 
 
 def main():
-    sort_path = input("Enter path to directory to sort: ")
+    sort_path = input("Enter directory path to sort: ")
     try:
         def_sort.sort_create_files(sort_path)
     except:
