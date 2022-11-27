@@ -34,12 +34,12 @@ def sort_create_files(start_path):
 
     # create dir
 
-    dir_images = start_path + "/images"
-    dir_videos = start_path + "/videos"
-    dir_music = start_path + "/music"
-    dir_documents = start_path + "/documents"
-    dir_archives = start_path + "/archives"
-    dir_others = start_path + "/others"
+    dir_images = os.path.join(start_path, "images")
+    dir_videos = os.path.join(start_path, "videos")
+    dir_music = os.path.join(start_path, "music")
+    dir_documents = os.path.join(start_path, "documents")
+    dir_archives = os.path.join(start_path, "archives")
+    dir_others = os.path.join(start_path, "others")
 
     list_of_dirs = [dir_images, dir_videos, dir_documents, dir_music, dir_archives, dir_others]
     name_of_dirs = ["images", "videos", "music", "documents", "archives", "others"]
@@ -61,7 +61,7 @@ def sort_create_files(start_path):
     for root, subFolders, files in os.walk(start_path):
         for file in files:
             try:
-                txt_path = root + "/" + file
+                txt_path = os.path.join(root, file)
                 list_files = file.split(".")
 
                 if list_files[-1].upper() in list_image:
