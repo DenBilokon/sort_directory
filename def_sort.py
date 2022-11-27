@@ -45,7 +45,10 @@ def sort_create_files(start_path):
     name_of_dirs = ["images", "videos", "music", "documents", "archives", "others"]
 
     for direct in list_of_dirs:
-        os.mkdir(direct)
+        try:
+            os.mkdir(direct)
+        except FileExistsError:
+            pass
 
     # remove and rename files
 
