@@ -55,11 +55,12 @@ def sort_create_files(start_path):
     list_music = ('MP3', 'OGG', 'WAV', 'AMR')
     list_archives = ('ZIP', 'GZ', 'TAR', 'RAR', '7Z')
 
-    known_extentions = []
-    unknown_extentions = []
+    known_extensions = []
+    unknown_extensions = []
 
     for root, subFolders, files in os.walk(start_path):
         for file in files:
+
             try:
                 txt_path = os.path.join(root, file)
                 list_files = file.rsplit(".")
@@ -69,28 +70,28 @@ def sort_create_files(start_path):
                     os.rename(txt_path, new_name)
                     txt_path = new_name
                     shutil.move(txt_path, dir_images)
-                    known_extentions.append(list_files[-1])
+                    known_extensions.append(list_files[-1])
 
                 elif list_files[-1].upper() in list_video:
                     new_name = os.path.join(root, normalize_names(file))
                     os.rename(txt_path, new_name)
                     txt_path = new_name
                     shutil.move(txt_path, dir_videos)
-                    known_extentions.append(list_files[-1])
+                    known_extensions.append(list_files[-1])
 
                 elif list_files[-1].upper() in list_music:
                     new_name = os.path.join(root, normalize_names(file))
                     os.rename(txt_path, new_name)
                     txt_path = new_name
                     shutil.move(txt_path, dir_music)
-                    known_extentions.append(list_files[-1])
+                    known_extensions.append(list_files[-1])
 
                 elif list_files[-1].upper() in list_documents:
                     new_name = os.path.join(root, normalize_names(file))
                     os.rename(txt_path, new_name)
                     txt_path = new_name
                     shutil.move(txt_path, dir_documents)
-                    known_extentions.append(list_files[-1])
+                    known_extensions.append(list_files[-1])
 
                 elif list_files[-1].upper() in list_archives:
                     filename = normalize_names(file)
@@ -104,7 +105,7 @@ def sort_create_files(start_path):
                         shutil.unpack_archive(txt_path, os.path.join(dir_archives, os.path.splitext(filename)[0]))
                     except (ValueError, shutil.ReadError):
                         pass
-                    known_extentions.append(list_files[-1])
+                    known_extensions.append(list_files[-1])
 
                 else:
                     os.path.join(dir_others, file)
@@ -112,12 +113,13 @@ def sort_create_files(start_path):
                     os.rename(txt_path, new_name)
                     txt_path = new_name
                     shutil.move(txt_path, dir_others)
-                    unknown_extentions.append(list_files[-1])
+                    unknown_extensions.append(list_files[-1])
 
             finally:
                 continue
-    print("Known_extentions - ", known_extentions)
-    print("Unknown_extentions - ", unknown_extentions)
+
+    print("Known_extensions - ", known_extensions)
+    print("Unknown_extensions - ", unknown_extensions)
 
     """Delete folders after removing"""
 
