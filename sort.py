@@ -6,7 +6,8 @@ def main():
     try:
         sorting_files.sort_create_files(sys.argv[1])
 
-    except:
+    except (IndexError, FileNotFoundError):
+        print("Please input correct path to sort folder")
         pass
     else:
         print("Well Done!")

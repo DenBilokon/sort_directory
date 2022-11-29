@@ -5,7 +5,8 @@ import shutil
 
 
 def normalize_names(name):
-    # normalize names from cyrillic to latin
+
+    """Normalize names from cyrillic to latin"""
 
     cyrillic_symbols = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяєіїґ"
     translations = ("a", "b", "v", "g", "d", "e", "e", "j", "z",
@@ -27,7 +28,8 @@ def normalize_names(name):
 
 
 def sort_create_files(start_path):
-    # create dir
+
+    """create dirs"""
 
     dir_images = os.path.join(start_path, "images")
     dir_videos = os.path.join(start_path, "videos")
@@ -45,7 +47,7 @@ def sort_create_files(start_path):
         except FileExistsError:
             pass
 
-    # remove and rename files
+    """Removing and renaming files"""
 
     list_image = ('JPEG', 'PNG', 'JPG', 'SVG', 'BMP')
     list_video = ('AVI', 'MP4', 'MOV', 'MKV')
@@ -96,12 +98,6 @@ def sort_create_files(start_path):
                         shutil.unpack_archive(txt_path, fr"{dir_archives}\{os.path.splitext(filename)[0]}")
                     except (ValueError, shutil.ReadError):
                         pass
-                    #     shutil.move(txt_path, dir_archives)
-                    # else:
-                    #     try:
-                    #         shutil.move(os.path.join(f"{root}", f"{file}"), dir_archives)
-                    #     except shutil.Error:
-                    #         pass
 
                 else:
                     os.path.join(dir_others, file)
@@ -113,7 +109,7 @@ def sort_create_files(start_path):
             finally:
                 continue
 
-    # delete folders after removing
+    """Delete folders after removing"""
 
     for direct in Path(start_path).glob("*"):
         if direct.is_dir() and direct.name not in name_of_dirs:
