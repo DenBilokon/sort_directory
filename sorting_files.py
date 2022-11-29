@@ -55,49 +55,56 @@ def sort_create_files(start_path):
     list_music = ('MP3', 'OGG', 'WAV', 'AMR')
     list_archives = ('ZIP', 'GZ', 'TAR', 'RAR', '7Z')
 
+    known_extentions = []
+    unknown_extentions = []
+
     for root, subFolders, files in os.walk(start_path):
         for file in files:
             try:
                 txt_path = os.path.join(root, file)
-                list_files = file.split(".")
+                list_files = file.rsplit(".")
 
                 if list_files[-1].upper() in list_image:
                     new_name = os.path.join(root, normalize_names(file))
                     os.rename(txt_path, new_name)
                     txt_path = new_name
                     shutil.move(txt_path, dir_images)
+                    known_extentions.append(list_files[-1])
 
                 elif list_files[-1].upper() in list_video:
                     new_name = os.path.join(root, normalize_names(file))
                     os.rename(txt_path, new_name)
                     txt_path = new_name
                     shutil.move(txt_path, dir_videos)
+                    known_extentions.append(list_files[-1])
 
                 elif list_files[-1].upper() in list_music:
                     new_name = os.path.join(root, normalize_names(file))
                     os.rename(txt_path, new_name)
                     txt_path = new_name
                     shutil.move(txt_path, dir_music)
+                    known_extentions.append(list_files[-1])
 
                 elif list_files[-1].upper() in list_documents:
                     new_name = os.path.join(root, normalize_names(file))
                     os.rename(txt_path, new_name)
                     txt_path = new_name
                     shutil.move(txt_path, dir_documents)
+                    known_extentions.append(list_files[-1])
 
                 elif list_files[-1].upper() in list_archives:
                     filename = normalize_names(file)
                     new_name = os.path.join(root, filename)
                     os.rename(txt_path, new_name)
-
                     txt_path = new_name
-                    os.mkdir(fr"{dir_archives}\{os.path.splitext(filename)[0]}")
-                    shutil.move(txt_path, fr"{dir_archives}\{os.path.splitext(filename)[0]}")
-                    txt_path = os.path.join(fr"{dir_archives}\{os.path.splitext(filename)[0]}\{filename}")
+                    os.mkdir(os.path.join(dir_archives, os.path.splitext(filename)[0]))
+                    shutil.move(txt_path, os.path.join(dir_archives, os.path.splitext(filename)[0]))
+                    txt_path = os.path.join(dir_archives, os.path.splitext(filename)[0], filename)
                     try:
-                        shutil.unpack_archive(txt_path, fr"{dir_archives}\{os.path.splitext(filename)[0]}")
+                        shutil.unpack_archive(txt_path, os.path.join(dir_archives, os.path.splitext(filename)[0]))
                     except (ValueError, shutil.ReadError):
                         pass
+                    known_extentions.append(list_files[-1])
 
                 else:
                     os.path.join(dir_others, file)
@@ -105,9 +112,12 @@ def sort_create_files(start_path):
                     os.rename(txt_path, new_name)
                     txt_path = new_name
                     shutil.move(txt_path, dir_others)
+                    unknown_extentions.append(list_files[-1])
 
             finally:
                 continue
+    print("Known_extentions - ", known_extentions)
+    print("Unknown_extentions - ", unknown_extentions)
 
     """Delete folders after removing"""
 
@@ -117,4 +127,4 @@ def sort_create_files(start_path):
                 shutil.rmtree(direct, ignore_errors=True)
             except PermissionError:
                 print("Permission error for delete", direct)
-                pass
+

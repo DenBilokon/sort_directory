@@ -9,8 +9,6 @@ def main():
     except (IndexError, FileNotFoundError):
         print("Please input correct path to sort folder")
         pass
-    else:
-        print("Well Done!")
 
 
 if __name__ == '__main__':

@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4373ef0e-f45e-426a-9701-325be8c27507" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sort.py" beforeDir="false" afterPath="$PROJECT_DIR$/sort.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sorting_files.py" beforeDir="false" afterPath="$PROJECT_DIR$/sorting_files.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
