@@ -87,18 +87,21 @@ def sort_create_files(start_path):
                     filename = normalize_names(file)
                     new_name = os.path.join(root, filename)
                     os.rename(txt_path, new_name)
+
                     txt_path = new_name
-                    shutil.move(txt_path, dir_archives)
-                    txt_path = os.path.join(dir_archives, filename)
+                    os.mkdir(fr"{dir_archives}\{os.path.splitext(filename)[0]}")
+                    shutil.move(txt_path, fr"{dir_archives}\{os.path.splitext(filename)[0]}")
+                    txt_path = os.path.join(fr"{dir_archives}\{os.path.splitext(filename)[0]}\{filename}")
                     try:
-                        shutil.unpack_archive(txt_path, dir_archives)
+                        shutil.unpack_archive(txt_path, fr"{dir_archives}\{os.path.splitext(filename)[0]}")
                     except (ValueError, shutil.ReadError):
-                        shutil.move(txt_path, dir_archives)
-                    else:
-                        try:
-                            shutil.move(os.path.join(f"{root}", f"{file}"), dir_archives)
-                        except shutil.Error:
-                            pass
+                        pass
+                    #     shutil.move(txt_path, dir_archives)
+                    # else:
+                    #     try:
+                    #         shutil.move(os.path.join(f"{root}", f"{file}"), dir_archives)
+                    #     except shutil.Error:
+                    #         pass
 
                 else:
                     os.path.join(dir_others, file)
