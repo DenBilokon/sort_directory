@@ -4,11 +4,7 @@ import re
 import shutil
 
 
-#start_path = "C:/Users/BohdanBilokon/Desktop/trash"
-
-
 def normalize_names(name):
-
     # normalize names from cyrillic to latin
 
     cyrillic_symbols = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяєіїґ"
@@ -31,7 +27,6 @@ def normalize_names(name):
 
 
 def sort_create_files(start_path):
-
     # create dir
 
     dir_images = os.path.join(start_path, "images")
@@ -101,7 +96,7 @@ def sort_create_files(start_path):
                         shutil.move(txt_path, dir_archives)
                     else:
                         try:
-                            shutil.move(os.path.join(f"{root}", f"{file}"),dir_archives)
+                            shutil.move(os.path.join(f"{root}", f"{file}"), dir_archives)
                         except shutil.Error:
                             pass
 
@@ -115,8 +110,7 @@ def sort_create_files(start_path):
             finally:
                 continue
 
-
-# delete folders after removing
+    # delete folders after removing
 
     for direct in Path(start_path).glob("*"):
         if direct.is_dir() and direct.name not in name_of_dirs:

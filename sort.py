@@ -1,10 +1,11 @@
-import def_sort
+import sys
+import sorting_files
 
 
 def main():
-    sort_path = input("Enter directory path to sort: ")
     try:
-        def_sort.sort_create_files(sort_path)
+        sorting_files.sort_create_files(sys.argv[1])
+
     except:
         pass
     else:
